@@ -194,7 +194,7 @@ int main()
             continue;
         }
         s = postfix(s);
-        fileOut << s << "..";
+        fileOut << s << "........";
         fileOut << setprecision(2) << calculation(s) << endl;
     }
 }
