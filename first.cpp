@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
+#include<sstream>
 #include <math.h>
 #include <iomanip>
 #include <stack>
@@ -179,22 +179,8 @@ float calculation(string s)
 
 int main()
 {
-    ifstream fileIn;
-    ofstream fileOut;
-    fileIn.open("input.txt");
-    fileOut.open("output.txt");
-    string s;
-    while (!fileIn.eof())
-    {
-        getline(fileIn, s);
-        fileOut << s << ".........";
-        if (!CheckExpression(s))
-        {
-            fileOut << "E" << endl;
-            continue;
-        }
-        s = postfix(s);
-        fileOut << s << "........";
-        fileOut << setprecision(2) << calculation(s) << endl;
-    }
+//  int Rank(c) trả về độ ưu tiên của toán tử, toán hạng c => chỉ dùng để phục vụ hàm CheckExpression(); không cần quan tâm
+//  bool CheckExpression(string s) trả về true nếu string s là phương trình hợp lí, false nếu không
+// string postfix(string s) trả về chuỗi là hậu tố từ phương trình trung tố s
+// float calculation(string s) trả về giá trị float cho việc tính toán, đầu vào string s phải là hậu tố có từ hàm postfix phía trên nên khi code gọi hàm này thì nhớ phải cho string gán bằng hàm postfix phía trên trước
 }
