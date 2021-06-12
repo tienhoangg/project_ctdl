@@ -69,6 +69,11 @@ bool CheckExpression(string s)
             if (Rank(s[i]) == 2 || Rank(s[i]) == 3)
                 return false;
         }
+        if (check == 5)
+        {
+            if (Rank(s[i]) == 1)
+                return false;
+        }
         if (Rank(s[i]) > 0)
             check = Rank(s[i]);
     }
