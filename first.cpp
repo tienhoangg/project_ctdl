@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include<sstream>
+#include <sstream>
 #include <math.h>
 #include <iomanip>
 #include <stack>
@@ -66,6 +66,11 @@ bool CheckExpression(string s)
         if (check == 4)
         {
             if (Rank(s[i]) == 2 || Rank(s[i]) == 3)
+                return false;
+        }
+        if (check == 5)
+        {
+            if (Rank(s[i]) == 1)
                 return false;
         }
         if (Rank(s[i]) > 0)
@@ -179,8 +184,10 @@ float calculation(string s)
 
 int main()
 {
-//  int Rank(c) trả về độ ưu tiên của toán tử, toán hạng c => chỉ dùng để phục vụ hàm CheckExpression(); không cần quan tâm
-//  bool CheckExpression(string s) trả về true nếu string s là phương trình hợp lí, false nếu không
-// string postfix(string s) trả về chuỗi là hậu tố từ phương trình trung tố s
-// float calculation(string s) trả về giá trị float cho việc tính toán, đầu vào string s phải là hậu tố có từ hàm postfix phía trên nên khi code gọi hàm này thì nhớ phải cho string gán bằng hàm postfix phía trên trước
+    string s;
+    getline(cin, s);
+    if (CheckExpression(s))
+        cout << "ok";
+    else
+        cout << "not ok";
 }
