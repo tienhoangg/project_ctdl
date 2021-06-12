@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include<sstream>
+#include <sstream>
 #include <math.h>
 #include <iomanip>
 #include <stack>
-#include <iomanip> 
+#include <iomanip>
 using namespace std;
 
 int Rank(char c)
@@ -183,11 +183,8 @@ float calculation(string s)
     return temp.top();
 }
 
-
-
 int main()
 {
-    
     ifstream inPut;
     ofstream outPut;
     string s, s1, PostFix;
@@ -205,10 +202,11 @@ int main()
     cout << "c: tinh toan " << endl;
     cout << "t: chuyen doi" << endl;
     cin >> choice;
-    string* a = new string[n];
-    float* cal=new float[n];
-    if (choice == "c") {
-        for (int i = 0;i < n;i++)
+    string *a = new string[n];
+    float *cal = new float[n];
+    if (choice == "c")
+    {
+        for (int i = 0; i < n; i++)
         {
 
             getline(inPut, a[i]);
@@ -216,7 +214,7 @@ int main()
             {
                 PostFix = postfix(a[i]);
                 cal[i] = calculation(PostFix);
-                outPut <<setprecision(3) <<cal[i] << endl;
+                outPut << setprecision(3) << cal[i] << endl;
             }
             else
             {
@@ -225,9 +223,8 @@ int main()
         }
     }
     else if (choice == "t")
-        for (int i = 0;i < n;i++)
+        for (int i = 0; i < n; i++)
         {
-
             getline(inPut, a[i]);
             if (CheckExpression(a[i]) == true)
             {
