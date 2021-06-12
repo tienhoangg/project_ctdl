@@ -6,7 +6,7 @@
 #include <stack>
 #include <iomanip>
 using namespace std;
-
+//hello
 int Rank(char c)
 {
     if (c == ' ')
