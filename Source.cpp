@@ -4,7 +4,6 @@
 #include <math.h>
 #include <iomanip>
 #include <stack>
-#include <iomanip>
 using namespace std;
 
 int Rank(char c)
