@@ -58,6 +58,8 @@ bool CheckExpression(string s)
         {
             if (Rank(s[i]) == 1 && Rank(s[i - 1]) == 0)
                 return false;
+            if (Rank(s[i]) == 4)
+                return false;
         }
         if (check == 2 || check == 3)
         {
