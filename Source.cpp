@@ -200,8 +200,8 @@ int main()
     cout << "nhap so luong phep tinh: " << endl;
     cin >> n;
     cout << "chon hanh dong: " << endl;
-    cout << "c: tinh toan " << endl;
-    cout << "t: chuyen doi" << endl;
+    cout << "-c: tinh toan " << endl;
+    cout << "-t: chuyen doi" << endl;
     cin >> choice;
     string *a = new string[n];
     float *cal = new float[n];
