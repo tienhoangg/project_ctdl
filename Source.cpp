@@ -205,7 +205,7 @@ int main()
     cin >> choice;
     string *a = new string[n];
     float *cal = new float[n];
-    if (choice == "c")
+    if (choice == "-c")
     {
         for (int i = 0; i < n; i++)
         {
@@ -223,7 +223,7 @@ int main()
             }
         }
     }
-    else if (choice == "t")
+    else if (choice == "-t")
         for (int i = 0; i < n; i++)
         {
             getline(inPut, a[i]);
