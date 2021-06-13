@@ -239,4 +239,6 @@ int main()
         }
     else
         cout << "nhap khong hop le " << endl;
+    detele[]a;
+    delete[]cal;
 }
