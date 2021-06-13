@@ -194,17 +194,17 @@ int main()
     cout << "nhap file txt input: " << endl;
     cin >> s;
     inPut.open(s);
-    cout << "nhap file txt output: " << endl;
-    cin >> s1;
-    outPut.open(s1);
     cout << "nhap so luong phep tinh: " << endl;
     cin >> n;
     cout << "chon hanh dong: " << endl;
     cout << "-c: tinh toan " << endl;
     cout << "-t: chuyen doi" << endl;
     cin >> choice;
-    string *a = new string[n];
-    float *cal = new float[n];
+    cout << "nhap file txt output: " << endl;
+    cin >> s1;
+    outPut.open(s1);
+    string* a = new string[n];
+    float* cal = new float[n];
     if (choice == "-c")
     {
         for (int i = 0; i < n; i++)
