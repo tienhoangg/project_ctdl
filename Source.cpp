@@ -3,8 +3,64 @@
 #include <sstream>
 #include <math.h>
 #include <iomanip>
-#include <stack>
 using namespace std;
+
+template <class T>
+struct node
+{
+    T value;
+    node *next;
+};
+
+template <class T>
+class stack
+{
+private:
+    node<T> *p_high = NULL;
+    int count = 0;
+
+public:
+    void push(T);
+    void pop();
+    T top();
+    int size();
+};
+
+template <class T>
+void stack<T>::push(T value)
+{
+    node<T> *temp;
+    temp = new node<T>;
+    temp->value = value;
+    temp->next = p_high;
+    p_high = temp;
+    count++;
+}
+
+template <class T>
+void stack<T>::pop()
+{
+    if (p_high == NULL)
+        return;
+    node<T> *temp;
+    temp = p_high;
+    p_high = p_high->next;
+    delete temp;
+    count--;
+}
+
+template <class T>
+T stack<T>::top()
+{
+    if (p_high != NULL)
+        return p_high->value;
+}
+
+template <class T>
+int stack<T>::size()
+{
+    return count;
+}
 
 int Rank(char c)
 {
@@ -203,8 +259,8 @@ int main()
     cout << "nhap file txt output: " << endl;
     cin >> s1;
     outPut.open(s1);
-    string* a = new string[n];
-    float* cal = new float[n];
+    string *a = new string[n];
+    float *cal = new float[n];
     if (choice == "-c")
     {
         for (int i = 0; i < n; i++)
