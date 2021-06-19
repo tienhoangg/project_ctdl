@@ -81,6 +81,8 @@ int Rank(char c)
 bool CheckExpression(string s)
 {
     int check = 0, bracket1 = 0, bracket2 = 0, bracket3 = 0;
+    if (Rank(s[0]) == 2 || Rank(s[0]) == 3 || Rank(s[0]) == 5)
+        return false;
     for (int i = 0; i < s.length(); i++)
     {
         if (s[i] == '(')
