@@ -20,6 +20,11 @@ private:
     int count = 0;
 
 public:
+    ~stack()
+    {
+        while(count>0)
+        this->pop();
+    }
     void push(T);
     void pop();
     T top();
@@ -80,37 +85,30 @@ int Rank(char c)
 
 bool CheckExpression(string s)
 {
-    int check = 0, bracket1 = 0, bracket2 = 0, bracket3 = 0;
-    if (Rank(s[0]) == 2 || Rank(s[0]) == 3 || Rank(s[0]) == 5)
+    if (Rank(s[0]) == 2 || Rank(s[0]) == 3)
         return false;
+    int check = 0;
+    stack<char> temp;
     for (int i = 0; i < s.length(); i++)
     {
-        if (s[i] == '(')
-            bracket1++;
-        if (s[i] == ')')
-            bracket1--;
-        if (s[i] == '[')
+        if (s[i] == '(' || s[i] == '[' || s[i] == '{')
         {
-            bracket2++;
+            temp.push(s[i]);
             s[i] = '(';
         }
-        if (s[i] == ']')
+        if (s[i] == ')' || s[i] == ']' || s[i] == '}')
         {
-            bracket2--;
+            if (temp.size() < 1)
+                return false;
+            if (s[i] == ')' && temp.top() != '(')
+                return false;
+            if (s[i] == ']' && temp.top() != '[')
+                return false;
+            if (s[i] == '}' && temp.top() != '{')
+                return false;
+            temp.pop();
             s[i] = ')';
         }
-        if (s[i] == '{')
-        {
-            bracket3++;
-            s[i] = '(';
-        }
-        if (s[i] == '}')
-        {
-            bracket3--;
-            s[i] = ')';
-        }
-        if (bracket1 < 0 || bracket2 < 0 || bracket3 < 0)
-            return false;
         if (check == 1)
         {
             if (Rank(s[i]) == 1 && Rank(s[i - 1]) == 0)
@@ -125,18 +123,18 @@ bool CheckExpression(string s)
         }
         if (check == 4)
         {
-            if (Rank(s[i]) == 2 || Rank(s[i]) == 3)
+            if (Rank(s[i]) == 2 || Rank(s[i]) == 3 || Rank(s[i]) == 5)
                 return false;
         }
         if (check == 5)
         {
-            if (Rank(s[i]) == 1)
+            if (Rank(s[i]) == 1 || Rank(s[i]) == 4)
                 return false;
         }
         if (Rank(s[i]) > 0)
             check = Rank(s[i]);
     }
-    if (bracket1 != 0 || bracket2 != 0 || bracket3 != 0)
+    if (temp.size() != 0)
         return false;
     return true;
 }
@@ -205,7 +203,7 @@ string postfix(string s)
     return s_new;
 }
 
-float calculation(string s)
+bool calculation(string s, float& output)
 {
     stack<float> temp;
     stringstream ss(s);
@@ -234,69 +232,73 @@ float calculation(string s)
             if (c == '*')
                 temp.push(float_temp1 * float_temp2);
             if (c == '/')
-                temp.push(float_temp1 / float_temp2);
+                if(float_temp2!=0)
+                    temp.push(float_temp1 / float_temp2);
+                    else
+                    return false;
             if (c == '^')
                 temp.push(pow(float_temp1, float_temp2));
         }
     }
-    return temp.top();
+    output = temp.top();
+    return true;
 }
 
-int main()
-{
-    ifstream inPut;
-    ofstream outPut;
-    string s, s1, PostFix;
-    string choice;
-    int n;
-    cout << "nhap file txt input: " << endl;
-    cin >> s;
-    inPut.open(s);
-    cout << "nhap so luong phep tinh: " << endl;
-    cin >> n;
-    cout << "chon hanh dong: " << endl;
-    cout << "-c: tinh toan " << endl;
-    cout << "-t: chuyen doi" << endl;
-    cin >> choice;
-    cout << "nhap file txt output: " << endl;
-    cin >> s1;
-    outPut.open(s1);
-    string *a = new string[n];
-    float *cal = new float[n];
-    if (choice == "-c")
-    {
-        for (int i = 0; i < n; i++)
-        {
+// int main()
+// {
+//     ifstream inPut;
+//     ofstream outPut;
+//     string s, s1, PostFix;
+//     string choice;
+//     int n;
+//     cout << "nhap file txt input: " << endl;
+//     cin >> s;
+//     inPut.open(s);
+//     cout << "nhap so luong phep tinh: " << endl;
+//     cin >> n;
+//     cout << "chon hanh dong: " << endl;
+//     cout << "-c: tinh toan " << endl;
+//     cout << "-t: chuyen doi" << endl;
+//     cin >> choice;
+//     cout << "nhap file txt output: " << endl;
+//     cin >> s1;
+//     outPut.open(s1);
+//     string *a = new string[n];
+//     float *cal = new float[n];
+//     if (choice == "-c")
+//     {
+//         for (int i = 0; i < n; i++)
+//         {
 
-            getline(inPut, a[i]);
-            if (CheckExpression(a[i]) == true)
-            {
-                PostFix = postfix(a[i]);
-                cal[i] = calculation(PostFix);
-                outPut << setprecision(3) << cal[i] << endl;
-            }
-            else
-            {
-                outPut << "E" << endl;
-            }
-        }
-    }
-    else if (choice == "-t")
-        for (int i = 0; i < n; i++)
-        {
-            getline(inPut, a[i]);
-            if (CheckExpression(a[i]) == true)
-            {
-                PostFix = postfix(a[i]);
-                outPut << PostFix << endl;
-            }
-            else
-            {
-                outPut << "E" << endl;
-            }
-        }
-    else
-        cout << "nhap khong hop le " << endl;
-    delete[] a;
-    delete[] cal;
-}
+//             getline(inPut, a[i]);
+//             if (CheckExpression(a[i]) == true)
+//             {
+//                 PostFix = postfix(a[i]);
+//                 cal[i] = calculation(PostFix);
+//                 outPut << setprecision(3) << cal[i] << endl;
+//             }
+//             else
+//             {
+//                 outPut << "E" << endl;
+//             }
+//         }
+//     }
+//     else if (choice == "-t")
+//         for (int i = 0; i < n; i++)
+//         {
+//             getline(inPut, a[i]);
+//             if (CheckExpression(a[i]) == true)
+//             {
+//                 PostFix = postfix(a[i]);
+//                 outPut << PostFix << endl;
+//             }
+//             else
+//             {
+//                 outPut << "E" << endl;
+//             }
+//         }
+//     else
+//         cout << "nhap khong hop le " << endl;
+//     delete[] a;
+//     delete[] cal;
+// }
