@@ -9,21 +9,21 @@ template <class T>
 struct node
 {
     T value;
-    node *next;
+    node* next;
 };
 
 template <class T>
 class stack
 {
 private:
-    node<T> *p_high = NULL;
+    node<T>* p_high = NULL;
     int count = 0;
 
 public:
     ~stack()
     {
-        while(count>0)
-        this->pop();
+        while (count > 0)
+            this->pop();
     }
     void push(T);
     void pop();
@@ -34,7 +34,7 @@ public:
 template <class T>
 void stack<T>::push(T value)
 {
-    node<T> *temp;
+    node<T>* temp;
     temp = new node<T>;
     temp->value = value;
     temp->next = p_high;
@@ -47,7 +47,7 @@ void stack<T>::pop()
 {
     if (p_high == NULL)
         return;
-    node<T> *temp;
+    node<T>* temp;
     temp = p_high;
     p_high = p_high->next;
     delete temp;
@@ -232,9 +232,9 @@ bool calculation(string s, float& output)
             if (c == '*')
                 temp.push(float_temp1 * float_temp2);
             if (c == '/')
-                if(float_temp2!=0)
+                if (float_temp2 != 0)
                     temp.push(float_temp1 / float_temp2);
-                    else
+                else
                     return false;
             if (c == '^')
                 temp.push(pow(float_temp1, float_temp2));
@@ -244,61 +244,61 @@ bool calculation(string s, float& output)
     return true;
 }
 
-// int main()
-// {
-//     ifstream inPut;
-//     ofstream outPut;
-//     string s, s1, PostFix;
-//     string choice;
-//     int n;
-//     cout << "nhap file txt input: " << endl;
-//     cin >> s;
-//     inPut.open(s);
-//     cout << "nhap so luong phep tinh: " << endl;
-//     cin >> n;
-//     cout << "chon hanh dong: " << endl;
-//     cout << "-c: tinh toan " << endl;
-//     cout << "-t: chuyen doi" << endl;
-//     cin >> choice;
-//     cout << "nhap file txt output: " << endl;
-//     cin >> s1;
-//     outPut.open(s1);
-//     string *a = new string[n];
-//     float *cal = new float[n];
-//     if (choice == "-c")
-//     {
-//         for (int i = 0; i < n; i++)
-//         {
+ int main()
+ {
+     ifstream input;
+     ofstream output;
+     string s, s1, PostFix;
+   string choice;
+    int n;
+    cout << "nhap file txt input: " << endl;
+     cin >> s;
+     input.open(s);
+   cout << "nhap so luong phep tinh: " << endl;
+    cin >> n;
+    cout << "chon hanh dong: " << endl;
+    cout << "-c: tinh toan " << endl;
+    cout << "-t: chuyen doi" << endl;
+    cin >> choice;
+    cout << "nhap file txt output: " << endl;
+    cin >> s1;
+    output.open(s1);
+     string *a = new string[n];
+     float *cal = new float[n];
+    if (choice == "-c")
+    {
+        for (int i = 0; i < n; i++)
+        {
 
-//             getline(inPut, a[i]);
-//             if (CheckExpression(a[i]) == true)
-//             {
-//                 PostFix = postfix(a[i]);
-//                 cal[i] = calculation(PostFix);
-//                 outPut << setprecision(3) << cal[i] << endl;
-//             }
-//             else
-//             {
-//                 outPut << "E" << endl;
-//             }
-//         }
-//     }
-//     else if (choice == "-t")
-//         for (int i = 0; i < n; i++)
-//         {
-//             getline(inPut, a[i]);
-//             if (CheckExpression(a[i]) == true)
-//             {
-//                 PostFix = postfix(a[i]);
-//                 outPut << PostFix << endl;
-//             }
-//             else
-//             {
-//                 outPut << "E" << endl;
-//             }
-//         }
-//     else
-//         cout << "nhap khong hop le " << endl;
-//     delete[] a;
-//     delete[] cal;
-// }
+             getline(input, a[i]);
+             if (CheckExpression(a[i]) == true)
+             {
+                 PostFix = postfix(a[i]);
+                 calculation(PostFix,cal[i]);
+                 output << setprecision(3) << cal[i] << endl;
+             }
+             else
+             {
+                output << "E" << endl;
+             }
+         }
+     }
+   else if (choice == "-t")
+         for (int i = 0; i < n; i++)
+         {
+             getline(input, a[i]);
+             if (CheckExpression(a[i]) == true)
+             {
+                 PostFix = postfix(a[i]);
+                output << PostFix << endl;
+            }
+            else
+             {
+                 output << "E" << endl;
+             }
+        }
+     else
+         cout << "nhap khong hop le " << endl;
+     delete[] a;
+     delete[] cal;
+ }
