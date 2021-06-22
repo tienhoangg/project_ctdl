@@ -9,14 +9,14 @@ template <class T>
 struct node
 {
     T value;
-    node* next;
+    node *next;
 };
 
 template <class T>
 class stack
 {
 private:
-    node<T>* p_high = NULL;
+    node<T> *p_high = NULL;
     int count = 0;
 
 public:
@@ -34,7 +34,7 @@ public:
 template <class T>
 void stack<T>::push(T value)
 {
-    node<T>* temp;
+    node<T> *temp;
     temp = new node<T>;
     temp->value = value;
     temp->next = p_high;
@@ -47,7 +47,7 @@ void stack<T>::pop()
 {
     if (p_high == NULL)
         return;
-    node<T>* temp;
+    node<T> *temp;
     temp = p_high;
     p_high = p_high->next;
     delete temp;
@@ -71,7 +71,7 @@ int Rank(char c)
 {
     if (c == ' ')
         return 0;
-    if ((c >= '0' && c <= '9') || c == '.')
+    if (c >= '0' && c <= '9')
         return 1;
     if (c == '+' || c == '-')
         return 2;
@@ -81,13 +81,16 @@ int Rank(char c)
         return 4;
     if (c == ')')
         return 5;
+    if (c == '.')
+        return 6;
 }
 
 bool CheckExpression(string s)
 {
-    if (Rank(s[0]) == 2 || Rank(s[0]) == 3)
+    if (Rank(s[0]) == 2 || Rank(s[0]) == 3 || Rank(s[0]) == 6)
         return false;
     int check = 0;
+    bool dot = true;
     stack<char> temp;
     for (int i = 0; i < s.length(); i++)
     {
@@ -95,6 +98,7 @@ bool CheckExpression(string s)
         {
             temp.push(s[i]);
             s[i] = '(';
+            dot = true;
         }
         if (s[i] == ')' || s[i] == ']' || s[i] == '}')
         {
@@ -108,6 +112,7 @@ bool CheckExpression(string s)
                 return false;
             temp.pop();
             s[i] = ')';
+            dot = true;
         }
         if (check == 1)
         {
@@ -120,16 +125,27 @@ bool CheckExpression(string s)
         {
             if (Rank(s[i]) == 2 || Rank(s[i]) == 3)
                 return false;
+            dot = true;
         }
         if (check == 4)
         {
             if (Rank(s[i]) == 2 || Rank(s[i]) == 3 || Rank(s[i]) == 5)
                 return false;
+            dot = true;
         }
         if (check == 5)
         {
             if (Rank(s[i]) == 1 || Rank(s[i]) == 4)
                 return false;
+            dot = true;
+        }
+        if (check == 6)
+        {
+            if (Rank(s[i]) != 1)
+                return false;
+            if (!dot)
+                return false;
+            dot = false;
         }
         if (Rank(s[i]) > 0)
             check = Rank(s[i]);
@@ -150,7 +166,7 @@ string postfix(string s)
             s_new += s[i];
             continue;
         }
-        if (Rank(s[i]) == 1)
+        if (Rank(s[i]) == 1 || Rank(s[i]) == 6)
         {
             s_new += s[i];
             continue;
@@ -203,7 +219,7 @@ string postfix(string s)
     return s_new;
 }
 
-bool calculation(string s, float& output)
+bool calculation(string s, float &output)
 {
     stack<float> temp;
     stringstream ss(s);
@@ -258,16 +274,17 @@ int main()
     {
         cout << "file nhap vao khong hop le " << endl;
     }
-    else {
+    else
+    {
         cout << "nhap so luong phep tinh: " << endl;
         cin >> n;
         cout << "chon hanh dong: " << endl;
         cout << "-c: tinh toan " << endl;
         cout << "-t: chuyen doi" << endl;
         cin >> choice;
-       
-        string* a = new string[n];
-        float* cal = new float[n];
+
+        string *a = new string[n];
+        float *cal = new float[n];
         if (choice == "-c")
         {
             cout << "nhap file txt output: " << endl;
@@ -282,7 +299,6 @@ int main()
                     PostFix = postfix(a[i]);
                     if (calculation(PostFix, cal[i]) == true)
                     {
-                     
                         output << setprecision(3) << cal[i] << endl;
                     }
                     else
