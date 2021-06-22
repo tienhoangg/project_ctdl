@@ -274,17 +274,16 @@ int main()
     {
         cout << "file nhap vao khong hop le " << endl;
     }
-    else
-    {
+    else {
         cout << "nhap so luong phep tinh: " << endl;
         cin >> n;
         cout << "chon hanh dong: " << endl;
         cout << "-c: tinh toan " << endl;
         cout << "-t: chuyen doi" << endl;
         cin >> choice;
-
-        string *a = new string[n];
-        float *cal = new float[n];
+       
+        string a ;
+        float cal;
         if (choice == "-c")
         {
             cout << "nhap file txt output: " << endl;
@@ -293,13 +292,14 @@ int main()
             for (int i = 0; i < n; i++)
             {
 
-                getline(input, a[i]);
-                if (CheckExpression(a[i]) == true)
+                getline(input, a);
+                if (CheckExpression(a) == true)
                 {
-                    PostFix = postfix(a[i]);
-                    if (calculation(PostFix, cal[i]) == true)
+                    PostFix = postfix(a);
+                    if (calculation(PostFix, cal) == true)
                     {
-                        output << setprecision(3) << cal[i] << endl;
+                        
+                        output << setprecision(3) << cal << endl;
                     }
                     else
                         output << "E" << endl;
@@ -318,10 +318,10 @@ int main()
             for (int i = 0; i < n; i++)
             {
 
-                getline(input, a[i]);
-                if (CheckExpression(a[i]) == true)
+                getline(input, a);
+                if (CheckExpression(a) == true)
                 {
-                    PostFix = postfix(a[i]);
+                    PostFix = postfix(a);
                     output << PostFix << endl;
                 }
                 else
@@ -332,7 +332,8 @@ int main()
         }
         else
             cout << "nhap khong hop le " << endl;
-        delete[] a;
-        delete[] cal;
+        
     }
+    input.close();
+    output.close();
 }
