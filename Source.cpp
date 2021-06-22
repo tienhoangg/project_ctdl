@@ -282,7 +282,7 @@ int main()
                     PostFix = postfix(a[i]);
                     if (calculation(PostFix, cal[i]) == true)
                     {
-                        calculation(PostFix, cal[i]);
+                     
                         output << setprecision(3) << cal[i] << endl;
                     }
                     else
