@@ -279,7 +279,6 @@ int main(int argc, char *argv[])
         output.open(argv[4]);
         for (int i = 0; i < stoi(argv[2]); i++)
         {
-
             getline(input, a);
             if (CheckExpression(a) == true)
             {
