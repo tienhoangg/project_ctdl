@@ -260,79 +260,53 @@ bool calculation(string s, float &output)
     return true;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
     ifstream input;
     ofstream output;
-    string s, s1, PostFix;
-    string choice;
-    int n;
-    cout << "nhap file txt input: " << endl;
-    cin >> s;
-    input.open(s);
-    if (!input.is_open())
+    string PostFix;
+    input.open(argv[1]);
+    string a;
+    float cal;
+    if (string(argv[3]) == "-c")
     {
-        cout << "file nhap vao khong hop le " << endl;
+        output.open(argv[4]);
+        for (int i = 0; i < stoi(argv[2]); i++)
+        {
+            getline(input, a);
+            if (CheckExpression(a) == true)
+            {
+                PostFix = postfix(a);
+                if (calculation(PostFix, cal) == true)
+                {
+                    output << setprecision(3) << cal << endl;
+                }
+                else
+                    output << "E" << endl;
+            }
+            else
+            {
+                output << "E" << endl;
+            }
+        }
     }
-    else {
-        cout << "nhap so luong phep tinh: " << endl;
-        cin >> n;
-        cout << "chon hanh dong: " << endl;
-        cout << "-c: tinh toan " << endl;
-        cout << "-t: chuyen doi" << endl;
-        cin >> choice;
-       
-        string a ;
-        float cal;
-        if (choice == "-c")
+    else if (string(argv[3]) == "-t")
+    {
+        output.open(argv[4]);
+        for (int i = 0; i < stoi(argv[2]); i++)
         {
-            cout << "nhap file txt output: " << endl;
-            cin >> s1;
-            output.open(s1);
-            for (int i = 0; i < n; i++)
-            {
 
-                getline(input, a);
-                if (CheckExpression(a) == true)
-                {
-                    PostFix = postfix(a);
-                    if (calculation(PostFix, cal) == true)
-                    {
-                        
-                        output << setprecision(3) << cal << endl;
-                    }
-                    else
-                        output << "E" << endl;
-                }
-                else
-                {
-                    output << "E" << endl;
-                }
+            getline(input, a);
+            if (CheckExpression(a) == true)
+            {
+                PostFix = postfix(a);
+                output << PostFix << endl;
+            }
+            else
+            {
+                output << "E" << endl;
             }
         }
-        else if (choice == "-t")
-        {
-            cout << "nhap file txt output: " << endl;
-            cin >> s1;
-            output.open(s1);
-            for (int i = 0; i < n; i++)
-            {
-
-                getline(input, a);
-                if (CheckExpression(a) == true)
-                {
-                    PostFix = postfix(a);
-                    output << PostFix << endl;
-                }
-                else
-                {
-                    output << "E" << endl;
-                }
-            }
-        }
-        else
-            cout << "nhap khong hop le " << endl;
-        
     }
     input.close();
     output.close();
